@@ -8,6 +8,10 @@ class VisitsController < ApplicationController
         render json: @visits
     end 
 
+    def show
+        render json: @visit
+    end
+
     def create
         @visit = Visit.new(visit_params)
     

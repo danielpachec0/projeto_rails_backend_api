@@ -15,6 +15,15 @@ RSpec.describe "Visits", type: :request do
     end
   end
 
+  describe 'GET /visit/:id' do
+    let!(:visit) { create(:visit) } 
+    it 'return the specified user' do
+      get visit_url(visit.id)
+      
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'POST /visits' do
     before do
       create(:user)
