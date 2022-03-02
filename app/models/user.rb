@@ -6,21 +6,20 @@ class User < ApplicationRecord
     validates :cpf, uniqueness: true
     validates :email, format: { with: VALID_EMAIL_REGEX }
     validates :email, uniqueness: true
-    validate :cpf_is_valid
+    validate :check_cpf
     
     has_many :contacts
 
     private
-    
-    def cpf_is_valid
-        if cpf.present? && check_cpf(cpf)
-            errors.add(:cpf, "is not valid")
-        end
-    end
 
-    def check_cpf(cpf)
-        if cpf.size != 11 
-            return false
+    def check_cpf
+        if cpf.nil? 
+            errors.add(:cpf, "is not valid")
+            return
+        end
+        if cpf.length != 11 
+            errors.add(:cpf, "is not valid")
+            return
         end
 
         equal = true
@@ -33,6 +32,7 @@ class User < ApplicationRecord
     
         if equal == true 
              errors.add(:cpf, "invalid cpf")
+             return
         end
     
         y = []
@@ -54,7 +54,8 @@ class User < ApplicationRecord
         mod2 = (sum2 * 10)%11
         if mod2 == 10 then mod2 = 0 end
         if !(mod1 == y[9] && mod2 == y[10])
-            return false
+            errors.add(:cpf, "is not valid")
+            return
         end
     end
 end

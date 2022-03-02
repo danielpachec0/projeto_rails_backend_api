@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
       end
     end
     context 'when cpf is not a valid cpf' do
-      it { expect(build(:user, cpf: '11111111111')).to be_invalid }
+      it { expect(build(:user, cpf: '07549488467')).to be_invalid }
     end 
   end 
 end
