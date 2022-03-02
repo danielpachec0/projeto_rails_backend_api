@@ -13,6 +13,14 @@ describe 'Users api', type: :request do
       expect(JSON.parse(response.body).size).to eq(2)
     end
   end
+  describe 'GET /user/:id' do
+    let!(:user) { create(:user) } 
+    it 'return the specified user' do
+      get user_url(user.id)
+      
+      expect(response).to have_http_status(:success)
+    end
+  end 
   describe 'POST /users' do
     it 'create a new user' do
       expect {
@@ -23,6 +31,13 @@ describe 'Users api', type: :request do
       expect(response).to have_http_status(:created)
       
     end
+    it 'does not create a valid user' do
+      expect {
+        post users_url, params: { user: {  email: 'daniel@mail.com', cpf: '11122233311'} }
+      }.to_not change(User, :count)
+
+      expect(response).to have_http_status(:unprocessable_entity)
+    end 
   end
 
   describe 'PATCH /user/:id' do
@@ -34,7 +49,7 @@ describe 'Users api', type: :request do
       }.to_not change(User, :count)
 
       expect(response).to have_http_status(:ok)
-    end
+    end  
   end
 
   describe 'DELETE /user/:id' do
