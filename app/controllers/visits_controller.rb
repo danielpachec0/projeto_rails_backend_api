@@ -26,6 +26,9 @@ class VisitsController < ApplicationController
         end
     end
 
+    def destroy
+        @visit.destroy
+    end
 
     private
     # Use callbacks to share common setup or constraints between actions.

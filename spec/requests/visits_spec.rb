@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Visits", type: :request do
+
   describe 'GET /visits' do
     before do
       create(:visit)
@@ -36,6 +37,7 @@ RSpec.describe "Visits", type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
     end 
   end
+
   describe 'PATCH /visit/:id' do
     let!(:visit) { create(:visit) } 
 
@@ -47,4 +49,16 @@ RSpec.describe "Visits", type: :request do
       expect(response).to have_http_status(:ok)
     end  
   end
+
+  describe 'DELETE /visit/:id' do
+    let!(:visit) { create(:visit) } 
+
+    it 'deletes a visit' do
+      expect {
+        delete visit_url(visit.id) 
+      }.to change(Visit, :count).from(1).to(0)
+
+      expect(response).to have_http_status(:no_content)
+    end
+  end 
 end
