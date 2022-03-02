@@ -36,4 +36,15 @@ RSpec.describe "Visits", type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
     end 
   end
+  describe 'PATCH /visit/:id' do
+    let!(:visit) { create(:visit) } 
+
+    it 'updates a visit' do
+      expect {
+        patch visit_url(visit.id), params: { visit: { status: 'new status' } }  
+      }.to_not change(User, :count)
+
+      expect(response).to have_http_status(:ok)
+    end  
+  end
 end

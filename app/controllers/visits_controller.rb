@@ -1,4 +1,7 @@
 class VisitsController < ApplicationController
+    before_action :set_visit, only: %i[ show update destroy ]
+    
+    
     def index
         @visits = Visit.all
 
@@ -14,6 +17,15 @@ class VisitsController < ApplicationController
           render json: @visit.errors, status: :unprocessable_entity
         end
     end
+
+    def update
+        if @visit.update(visit_params)
+            render json: @visit
+        else
+            render json: @visit.errors, status: :unprocessable_entity
+        end
+    end
+
 
     private
     # Use callbacks to share common setup or constraints between actions.
