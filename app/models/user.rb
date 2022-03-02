@@ -7,4 +7,6 @@ class User < ApplicationRecord
     validates :cpf, uniqueness: true
     validates :email, format: { with: VALID_EMAIL_REGEX }
     validates :email, uniqueness: true
+    
+    has_many :contacts
 end

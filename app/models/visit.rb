@@ -1,2 +1,25 @@
 class Visit < ApplicationRecord
+    validates :date, :status, :checkin_at, :checkout_at, presence: true
+    validate :date_before_current_date, :checkin_at_validation, :checkout_at_validation
+    
+    belongs_to :user
+
+    private
+    def date_before_current_date
+        if date.present? && date < Date.today
+            errors.add(:date, "can't be in the past")
+        end
+    end
+    def checkin_at_validation
+        if date.present? && checkin_at.present? && checkin_at >= date
+            errors.add(:checkin_at, "checkin_at cant be after current day")
+        end
+    end
+    def checkout_at_validation
+        if checkout_at.present? && checkin_at.present? && checkout_at < checkin_at
+            errors.add(:checkout_at, "cant be before chekin_at")
+        end
+    end 
+        
+        
 end

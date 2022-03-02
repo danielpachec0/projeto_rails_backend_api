@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :visit do
-    date { "2022-03-02 09:33:17" }
+    date { DateTime.current }
     status { "MyString" }
-    checkin_at { "2022-03-02 09:33:17" }
-    checkout_at { "2022-03-02 09:33:17" }
+    user
+    checkin_at { DateTime.yesterday }
+    checkout_at { DateTime.tomorrow.tomorrow }
   end
 end
