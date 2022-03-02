@@ -21,10 +21,10 @@ RSpec.describe User, type: :model do
       it { expect(build(:user, cpf: nil)).to be_invalid }
     end
     context 'when cpf size is smaller than accepted' do 
-      it { expect(build(:user, cpf: "111")).to be_invalid }
+      it { expect(build(:user, cpf: "123")).to be_invalid }
     end
     context 'when cpf size is bigger than accepted' do 
-      it { expect(build(:user, cpf: "111111111111")).to be_invalid }
+      it { expect(build(:user, cpf: "1234567891011")).to be_invalid }
     end
     context 'when email is not a valid email adress' do 
       it { expect(build(:user, email: "invalidMail")).to be_invalid }

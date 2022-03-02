@@ -3,7 +3,6 @@ class User < ApplicationRecord
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
     validates :name, :email, :cpf, presence: true
-    validates :cpf, length: { is: 11 }
     validates :cpf, uniqueness: true
     validates :email, format: { with: VALID_EMAIL_REGEX }
     validates :email, uniqueness: true
@@ -15,12 +14,14 @@ class User < ApplicationRecord
     
     def cpf_is_valid
         if cpf.present? && check_cpf(cpf)
-            errors.add(:date, "can't be in the past")
+            errors.add(:cpf, "is not valid")
         end
     end
 
     def check_cpf(cpf)
-        if cpf.size != 11 then return false end
+        if cpf.size != 11 
+            return false
+        end
 
         equal = true
         (1..10).step do |i|
@@ -30,7 +31,9 @@ class User < ApplicationRecord
             end
         end
     
-        if equal == true then errors.add(:cpf, "invalid cpf") end
+        if equal == true 
+             errors.add(:cpf, "invalid cpf")
+        end
     
         y = []
     
@@ -51,7 +54,7 @@ class User < ApplicationRecord
         mod2 = (sum2 * 10)%11
         if mod2 == 10 then mod2 = 0 end
         if !(mod1 == y[9] && mod2 == y[10])
-            errors.add(:cpf, "invalid cpf")
+            return false
         end
     end
 end
