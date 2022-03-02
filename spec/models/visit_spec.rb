@@ -16,6 +16,9 @@ RSpec.describe Visit, type: :model do
     context 'when status is nil' do 
       it { expect(build(:visit, status: nil)).to be_invalid }
     end
+    context 'when status is not a valid option' do 
+      it { expect(build(:visit, status: 'invalid status')).to be_invalid }
+    end
     context 'when user_id is nil' do 
       it { expect(build(:visit, user_id: nil)).to be_invalid }
     end

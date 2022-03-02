@@ -31,7 +31,7 @@ RSpec.describe "Visits", type: :request do
     it 'Creates a new visit' do
       
       expect {
-        post visits_url, params: { visit: { date: DateTime.current, status: 'status', user_id: 1, checkin_at: DateTime.yesterday,  checkout_at:  DateTime.tomorrow.tomorrow} }
+        post visits_url, params: { visit: { date: DateTime.current, status: 'realizando', user_id: 1, checkin_at: DateTime.yesterday,  checkout_at:  DateTime.tomorrow.tomorrow} }
       }.to change(Visit, :count).from(0).to(1)
 
 
@@ -52,7 +52,7 @@ RSpec.describe "Visits", type: :request do
 
     it 'updates a visit' do
       expect {
-        patch visit_url(visit.id), params: { visit: { status: 'new status' } }  
+        patch visit_url(visit.id), params: { visit: { status: 'pendente' } }  
       }.to_not change(User, :count)
 
       expect(response).to have_http_status(:ok)
