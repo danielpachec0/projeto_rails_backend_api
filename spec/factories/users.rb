@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :user do
     name { "name" }
     email { "email@mail.com" }
-    cpf { "09876543234" }
+    cpf { "07549488460" }
   end
 end

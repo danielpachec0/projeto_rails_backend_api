@@ -36,10 +36,13 @@ RSpec.describe User, type: :model do
         expect(user).to be_invalid
       end
       it 'cpf is not unique' do
-        create(:user, cpf: '11111111111')
-        user = build(:user, cpf: "11111111111", email: 'email2@mail.com')
+        create(:user, cpf: '37987420069')
+        user = build(:user, cpf: "37987420069", email: 'email2@mail.com')
         expect(user).to be_invalid 
       end
     end
+    context 'when cpf is not a valid cpf' do
+      it { expect(build(:user, cpf: '11111111111')).to be_invalid }
+    end 
   end 
 end

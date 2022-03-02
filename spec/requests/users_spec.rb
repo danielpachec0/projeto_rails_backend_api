@@ -4,7 +4,7 @@ describe 'Users api', type: :request do
   describe 'GET /users' do
     before do
       create(:user)
-      create(:user, email: 'email2@mail.com', cpf: '11111111111')
+      create(:user, email: 'email2@mail.com', cpf: '37987420069')
     end
     it 'return all users' do
       
@@ -24,7 +24,7 @@ describe 'Users api', type: :request do
   describe 'POST /users' do
     it 'create a new user' do
       expect {
-        post users_url, params: { user: { name: 'daniel', email: 'daniel@mail.com', cpf: '11122233311'} }
+        post users_url, params: { user: { name: 'daniel', email: 'daniel@mail.com', cpf: '37987420069'} }
       }.to change(User, :count).from(0).to(1)
       
 
