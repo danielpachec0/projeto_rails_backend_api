@@ -27,5 +27,13 @@ RSpec.describe "Visits", type: :request do
 
       expect(response).to have_http_status(:created)
     end
+    it 'does not create a valid visit' do
+      expect {
+        #passes an invalid user id
+        post visits_url, params: { visit: { date: DateTime.current, status: 'status', user_id: 2, checkin_at: DateTime.yesterday,  checkout_at:  DateTime.tomorrow.tomorrow} }
+      }.to_not change(User, :count)
+
+      expect(response).to have_http_status(:unprocessable_entity)
+    end 
   end
 end
