@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :question do
     name { "name" }
     formulary
-    type { "MyText" }
+    question_type { "MyText" }
   end
 end
