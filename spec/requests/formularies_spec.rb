@@ -41,7 +41,7 @@ describe 'Formularies api', type: :request do
     it 'updates a formulary' do
       expect {
       patch formulary_url(form.id), params: { formulary: { name: 'new form' } }  
-      }.to_not change(User, :count)
+      }.to_not change(Formulary, :count)
 
       expect(response).to have_http_status(:ok)
     end  
