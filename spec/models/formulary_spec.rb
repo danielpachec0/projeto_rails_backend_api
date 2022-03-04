@@ -11,7 +11,7 @@ RSpec.describe Formulary, type: :model do
   end
   describe 'validations' do
     context 'when name is not unique' do 
-      it '' do
+      it 'does not create a new formulary' do
         create(:formulary)
         form = build(:formulary)
         expect(form).to be_invalid
