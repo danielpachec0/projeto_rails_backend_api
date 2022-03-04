@@ -4,6 +4,6 @@ FactoryBot.define do
     answered_at { "2022-03-03 14:25:55" }
     formulary factory: :formulary
     question factory: :question
-    association :visit
+    #association :visit
   end
 end
