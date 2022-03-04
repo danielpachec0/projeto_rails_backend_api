@@ -4,7 +4,7 @@ describe 'Users api', type: :request do
   describe 'GET /users' do
     before do
       create(:user)
-      create(:user, email: 'email2@mail.com', cpf: '37987420069')
+      create(:user, email: 'email2@mail.com', cpf: '379.874.200-69')
     end
     it 'return all users' do
       
@@ -24,7 +24,7 @@ describe 'Users api', type: :request do
   describe 'POST /users' do
     it 'create a new user' do
       expect {
-        post users_url, params: { user: { name: 'daniel', email: 'daniel@mail.com', cpf: '37987420069'} }
+        post users_url, params: { user: { name: 'daniel', email: 'daniel@mail.com', cpf: '379.874.200-69'} }
       }.to change(User, :count).from(0).to(1)
       
 
@@ -33,7 +33,7 @@ describe 'Users api', type: :request do
     end
     it 'does not create a valid user' do
       expect {
-        post users_url, params: { user: {  email: 'daniel@mail.com', cpf: '11122233311'} }
+        post users_url, params: { user: {  email: 'daniel@mail.com', cpf: '111.222.333-11'} }
       }.to_not change(User, :count)
 
       expect(response).to have_http_status(:unprocessable_entity)
