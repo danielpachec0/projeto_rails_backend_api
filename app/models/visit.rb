@@ -1,10 +1,11 @@
 class Visit < ApplicationRecord
-    validates :date, :status, :checkin_at, :checkout_at, presence: true
+    validates :date, :status, :checkin_at, :checkout_at, :user_id, presence: true
     validates :status, inclusion: { in: ['pendente', 'realizando', 'realizado'],
                                     message: "%{value} is not a valid option for status"}
     validate :date_before_current_date, :checkin_at_validation, :checkout_at_validation
     
     belongs_to :user
+    has_many :answer
 
     private
     def date_before_current_date

@@ -3,4 +3,5 @@ class Question < ApplicationRecord
                                     message: "uniquennes msg placeholder"}
 
     belongs_to :formulary
+    has_one :answer
 end
