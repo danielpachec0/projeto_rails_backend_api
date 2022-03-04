@@ -1,12 +1,14 @@
 class User < ApplicationRecord
 
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+    VALID_CPF_REGEX = /(\d{3}\.\d{3}\.\d{3}\-\d{2})/
 
     validates :name, :email, :cpf, presence: true
-    validates :cpf, uniqueness: true
+    validates :cpf, format: { with: VALID_CPF_REGEX }
     validates :email, format: { with: VALID_EMAIL_REGEX }
     validates :email, uniqueness: true
     validate :check_cpf
+    validates :cpf, uniqueness: true
     
     has_many :contacts
 
@@ -16,15 +18,18 @@ class User < ApplicationRecord
         if cpf.nil? 
             errors.add(:cpf, "is not valid")
             return
+        else
+            cpf_mod = cpf.tr('.', '')
+            cpf_mod = cpf_mod.tr('-', '')
         end
-        if cpf.length != 11 
+        if cpf_mod.length != 11 
             errors.add(:cpf, "is not valid")
             return
         end
 
         equal = true
         (1..10).step do |i|
-            if cpf[i] != cpf[i-1]
+            if cpf_mod[i] != cpf_mod[i-1]
                 equal =  false
                 break
             end
@@ -37,7 +42,7 @@ class User < ApplicationRecord
     
         y = []
     
-        cpf.each_char do |char| 
+        cpf_mod.each_char do |char| 
             y.push char.to_i 
         end 
     
