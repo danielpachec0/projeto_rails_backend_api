@@ -3,5 +3,5 @@ class Answer < ApplicationRecord
     
     belongs_to :question
     belongs_to :formulary
-    belongs_to :visit
+    has_one :visit
 end
