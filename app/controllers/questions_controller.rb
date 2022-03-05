@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: %i[ show update destroy ]
+  before_action :set_question, only: %i[ show update destroy image ]
 
   # GET /questions
   def index
@@ -10,13 +10,28 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1
   def show
-    render json: @question
+
+    if @question&.image&.attached?
+      render json: success_json_with_image(@question), status: :ok
+    else 
+      render json: @question
+    end
+    #render json: @question
+    #question = Question.find_by(id: params[:id])
+    
+  end
+
+  def image
+    if @question&.image&.attached?
+      redirect_to rails_blob_url(@question.image)
+    else
+      head :not_found
+    end
   end
 
   # POST /questions
   def create
     @question = Question.new(question_params)
-
     if @question.save
       render json: @question, status: :created, location: @question
     else
@@ -46,6 +61,17 @@ class QuestionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_params
-      params.require(:question).permit(:name, :qustion_type, :formulary_id)
+      params.require(:question).permit(:name, :qustion_type, :formulary_id, :image)
+    end
+
+    def success_json_with_image(question)
+      {
+        id: question.id,
+        name: question.name,
+        created_at: question.created_at,
+	      updated_at: question.updated_at,
+        formulary_id: question.formulary_id,
+        image: rails_blob_url(question.image)
+      }
     end
 end
