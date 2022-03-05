@@ -18,6 +18,16 @@ RSpec.describe User, type: :model do
         expect(build(:user, cpf: nil)).to be_invalid
       }
     end
+    context 'password have less than 6 characters' do
+      it { expect(build(:user, password: 'ab123')).to be_invalid }
+    end
+    context 'password have only letters' do
+      it { expect(build(:user, password: 'ab123')).to be_invalid }
+
+    end
+    context 'password have only digits' do
+      it { expect(build(:user, password: '123123')).to be_invalid }
+    end
     context 'when cpf does no match the regex' do 
       it { expect(build(:user, cpf: "123,123,123-11")).to be_invalid }
     end

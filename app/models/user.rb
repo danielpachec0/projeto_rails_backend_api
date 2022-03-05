@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
     VALID_CPF_REGEX = /(\d{3}\.\d{3}\.\d{3}\-\d{2})/
+    VALID_PASSWORD_REGEX = /[a-zA]+\d+/
 
     validates :name, :email, :cpf, presence: true
     validates :cpf, format: { with: VALID_CPF_REGEX }
@@ -10,11 +11,13 @@ class User < ApplicationRecord
     validates :email, uniqueness: true
     validate :check_cpf
     validates :cpf, uniqueness: true
-    
+    validates :password, length: { minimum: 6 } 
+    validates :password, format: { with: VALID_PASSWORD_REGEX }
+
     has_many :contacts
 
     private
-
+      
     def check_cpf
         if cpf.nil? 
             errors.add(:cpf, "is not valid")
