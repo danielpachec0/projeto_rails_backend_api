@@ -25,5 +25,17 @@ RSpec.describe Question, type: :model do
       end 
       it { expect(build(:question, name: 'name2', formulary_id: 2)).to be_valid }
     end
+    context 'when question_type is not valid' do
+      before do
+        create(:formulary)
+      end
+        it { expect(build(:question, question_type: 'invalid type', formulary_id: 1)).to be_invalid }
+    end
+    context 'when type is image but image is nil' do
+      before do
+        create(:formulary)
+      end
+        it { expect(build(:question, question_type: 'image', formulary_id: 1)).to be_invalid }
+    end
   end
 end

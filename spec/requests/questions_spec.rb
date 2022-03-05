@@ -73,29 +73,6 @@ RSpec.describe "Questions api", type: :request do
     end 
   end
 
-  #   before do
-  #     create(:formulary)
-  #   end
-  #   it 'create a new question' do
-  #     expect {
-  #       post questions_url, params: { question: { name: 'question name', formulary_id: 1, question_type: 'text' } }
-  #     }.to change(Question, :count).from(0).to(1)
-      
-
-  #     expect(response).to have_http_status(:created)
-      
-  #   end
-
-  #   it 'create a new question wit image file' do
-
-  #      
-
-  #     expect {
-  #       post questions_url, params: { question: { name: 'question name', formulary_id: 1, question_type: 'image', image: image } }
-  #     }.to change(Question, :count).from(0).to(1)
-  #   end 
-  # end
-
   describe 'PATCH /questions/:id' do
     let!(:question) { create(:question) } 
 
