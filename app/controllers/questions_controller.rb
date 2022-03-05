@@ -61,7 +61,7 @@ class QuestionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_params
-      params.require(:question).permit(:name, :qustion_type, :formulary_id, :image)
+      params.require(:question).permit(:name, :question_type, :formulary_id, :image)
     end
 
     def success_json_with_image(question)
