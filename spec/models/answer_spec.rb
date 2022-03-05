@@ -6,7 +6,7 @@ RSpec.describe Answer, type: :model do
     context 'when normal factory' do
       it 'be valid' do
         form = create(:formulary)
-        question = create(:question, formulary: form)
+        question = create(:question, :text, formulary: form)
         answer = build(:answer, question: question, formulary: form)
         expect(answer).to be_valid
       end
@@ -22,7 +22,7 @@ RSpec.describe Answer, type: :model do
     end
     context 'When the formulary_id is nil' do 
       it 'dows not create a new answer' do
-        question = create(:question)
+        question = create(:question, :text)
         answer = build(:answer, question: question)
         expect(answer).to be_invalid
       end

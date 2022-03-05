@@ -5,7 +5,7 @@ RSpec.describe "Answers api", type: :request do
   describe 'GET /answers' do
     before do
       form = create(:formulary)
-      question = create(:question, formulary: form)
+      question = create(:question, :text, formulary: form)
       create(:answer, question: question, formulary: form)
       create(:answer, question: question, formulary: form)
     end
@@ -19,7 +19,7 @@ RSpec.describe "Answers api", type: :request do
 
   describe 'GET /answers/:id' do
 
-    let!(:answer) { create(:answer, formulary: create(:formulary), question: create(:question, formulary_id: 1)) } 
+    let!(:answer) { create(:answer, formulary: create(:formulary), question: create(:question, :text, formulary_id: 1)) } 
     it 'return the specified formulary' do
       get formulary_url(answer.id)
       
@@ -30,9 +30,9 @@ RSpec.describe "Answers api", type: :request do
   describe 'POST /answers' do
     before do
       create(:formulary)
-      create(:question, formulary_id: 1)
+      create(:question, :text, formulary_id: 1)
     end
-    it 'create a new question' do
+    it 'create a new answers' do
       expect {
         post answers_url, params: { answer: { content: 'qustion content', formulary_id: 1, question_id: '1' } }
       }.to change(Answer, :count).from(0).to(1)
@@ -44,7 +44,7 @@ RSpec.describe "Answers api", type: :request do
   end
 
   describe 'PATCH /answers/:id' do
-    let!(:answer) { create(:answer, formulary: create(:formulary), question: create(:question, formulary_id: 1)) } 
+    let!(:answer) { create(:answer, formulary: create(:formulary), question: create(:question, :text, formulary_id: 1)) } 
  
 
     it 'updates a answer' do
@@ -57,7 +57,7 @@ RSpec.describe "Answers api", type: :request do
   end
 
   describe 'DELETE /answers/:id' do
-    let!(:answer) { create(:answer, formulary: create(:formulary), question: create(:question, formulary_id: 1)) } 
+    let!(:answer) { create(:answer, formulary: create(:formulary), question: create(:question, :text, formulary_id: 1)) } 
 
     it 'deletes a answer' do
       expect {

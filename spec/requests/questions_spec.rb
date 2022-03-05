@@ -4,9 +4,9 @@ require 'rails_helper'
 RSpec.describe "Questions api", type: :request do
   describe 'GET /questions' do
     before do
-      create(:question)
+      create(:question, :text)
       create(:formulary, name: '2')
-      create(:question, formulary_id: 2, name: 'other question')
+      create(:question, :text, formulary_id: 2, name: 'other question')
     end
     it 'return all questions' do
       get questions_url
@@ -24,7 +24,7 @@ RSpec.describe "Questions api", type: :request do
     context 'Question with type of text' do
 
     end
-    let!(:question) { create(:question) } 
+    let!(:question) { create(:question, :text) } 
     it 'return the specified formulary' do
       get formulary_url(question.id)
       
@@ -39,7 +39,7 @@ RSpec.describe "Questions api", type: :request do
     context 'Question with an image' do
 
       let(:image) { fixture_file_upload('image.png') }
-      let(:params) { { question: { name: 'question name', formulary_id: 1, question_type: 'text', image: image } } }
+      let(:params) { { question: { name: 'question name', formulary_id: 1, question_type: 'image', image: image } } }
       subject { post questions_url, params: params }
       
       it 'returns ' do
@@ -57,7 +57,7 @@ RSpec.describe "Questions api", type: :request do
     context 'Question without an image' do
 
       let(:image) { fixture_file_upload('image.png') }
-      let(:params) { { question: { name: 'question name', formulary_id: 1, question_type: 'text'} } }
+      let(:params) { { question: { name: 'question name', formulary_id: 1, question_type: 'text', text: 'a big text'} } }
       subject { post questions_url, params: params }
 
       it 'returns ' do
@@ -74,7 +74,7 @@ RSpec.describe "Questions api", type: :request do
   end
 
   describe 'PATCH /questions/:id' do
-    let!(:question) { create(:question) } 
+    let!(:question) { create(:question, :text) } 
 
     it 'updates a question' do
       expect {
@@ -86,7 +86,7 @@ RSpec.describe "Questions api", type: :request do
   end
 
   describe 'DELETE /questions/:id' do
-    let!(:question) { create(:question) } 
+    let!(:question) { create(:question, :text) } 
 
     it 'deletes a question' do
       expect {
