@@ -17,6 +17,13 @@ RSpec.describe "Questions api", type: :request do
   end
 
   describe 'GET /Question/:id' do
+    context 'Question with type of image' do
+
+
+    end
+    context 'Question with type of text' do
+
+    end
     let!(:question) { create(:question) } 
     it 'return the specified formulary' do
       get formulary_url(question.id)
@@ -29,16 +36,65 @@ RSpec.describe "Questions api", type: :request do
     before do
       create(:formulary)
     end
-    it 'create a new question' do
-      expect {
-        post questions_url, params: { question: { name: 'question name', formulary_id: 1, question_type: 'text' } }
-      }.to change(Question, :count).from(0).to(1)
+    context 'Question with an image' do
+
+      let(:image) { fixture_file_upload('image.png') }
+      let(:params) { { question: { name: 'question name', formulary_id: 1, question_type: 'text', image: image } } }
+      subject { post questions_url, params: params }
+      
+      it 'returns ' do
+        subject
+        expect(response).to have_http_status :created
+      end
+      it 'creates a question' do
+        expect { subject }.to change { Question.count }.from(0).to(1)
+      end
+      it 'creates a blob for the image' do
+        expect { subject }.to change { ActiveStorage::Blob.count }.from(0).to(1)
+      end 
+    end
+
+    context 'Question without an image' do
+
+      let(:image) { fixture_file_upload('image.png') }
+      let(:params) { { question: { name: 'question name', formulary_id: 1, question_type: 'text'} } }
+      subject { post questions_url, params: params }
+
+      it 'returns ' do
+        subject
+        expect(response).to have_http_status :created
+      end
+      it 'creates a question' do
+        expect { subject }.to change { Question.count }.from(0).to(1)
+      end
+      it 'does not create a blob for the image' do
+        expect { subject }.to_not change { ActiveStorage::Blob.count }
+      end 
+    end 
+  end
+
+  #   before do
+  #     create(:formulary)
+  #   end
+  #   it 'create a new question' do
+  #     expect {
+  #       post questions_url, params: { question: { name: 'question name', formulary_id: 1, question_type: 'text' } }
+  #     }.to change(Question, :count).from(0).to(1)
       
 
-      expect(response).to have_http_status(:created)
+  #     expect(response).to have_http_status(:created)
       
-    end
-  end
+  #   end
+
+  #   it 'create a new question wit image file' do
+
+  #      
+
+  #     expect {
+  #       post questions_url, params: { question: { name: 'question name', formulary_id: 1, question_type: 'image', image: image } }
+  #     }.to change(Question, :count).from(0).to(1)
+  #   end 
+  # end
 
   describe 'PATCH /questions/:id' do
     let!(:question) { create(:question) } 
