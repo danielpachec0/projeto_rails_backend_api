@@ -7,6 +7,11 @@ class Question < ApplicationRecord
                                     message: "%{value} is not a valid option for question_type"}
     with_options if: :is_image? do |img|
         img.validates :image, attached: true
+        img.validates :text, absence: true
+    end
+    with_options unless: :is_image? do |img|
+        img.validates :image, absence: true
+        img.validates :text, presence: true
     end
     
 
