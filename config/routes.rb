@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :answers
-  resources :questions
+  resources :questions do
+    get :image, on: :member
+  end
   resources :formularies
   resources :users
   resources :visits
