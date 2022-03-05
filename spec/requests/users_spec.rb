@@ -24,7 +24,7 @@ describe 'Users api', type: :request do
   describe 'POST /users' do
     it 'create a new user' do
       expect {
-        post users_url, params: { user: { name: 'daniel', email: 'daniel@mail.com', cpf: '379.874.200-69'} }
+        post users_url, params: { user: { name: 'daniel', email: 'daniel@mail.com', cpf: '379.874.200-69', password: 'abc123'} }
       }.to change(User, :count).from(0).to(1)
       
 
@@ -45,7 +45,7 @@ describe 'Users api', type: :request do
 
     it 'updates a user' do
       expect {
-      patch user_url(user.id), params: { user: { name: 'anna' } }  
+      patch user_url(user.id), params: { user: { name: 'anna', password: 'abc123' } }  
       }.to_not change(User, :count)
 
       expect(response).to have_http_status(:ok)
