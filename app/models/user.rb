@@ -14,7 +14,7 @@ class User < ApplicationRecord
     validates :password, length: { minimum: 6 } 
     validates :password, format: { with: VALID_PASSWORD_REGEX }
 
-    has_many :contacts
+    has_many :visits, dependent: :destroy
 
     private
       

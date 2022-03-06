@@ -59,8 +59,19 @@ describe 'Users api', type: :request do
 
   describe 'DELETE /user/:id' do
     let!(:user) { create(:user) } 
+    
 
     it 'deletes a user' do
+      expect {
+        delete user_url(user.id), headers: { Authorization: token }
+      }.to change(User, :count).from(1).to(0)
+
+      expect(response).to have_http_status(:no_content)
+    end
+    
+
+    it 'deletes a user with a dependent visit' do
+      create(:visit, user_id: 1)
       expect {
         delete user_url(user.id), headers: { Authorization: token }
       }.to change(User, :count).from(1).to(0)

@@ -67,11 +67,23 @@ RSpec.describe "Visits", type: :request do
 
   describe 'DELETE /visit/:id' do
     let!(:visit) { create(:visit, user_id: 1) } 
+    let!(:visit2) { create(:visit, user_id: 1) } 
+    let!(:question) { create(:question, :text) } 
+    let!(:answer) { create(:answer, formulary_id: 1, question_id: 1, visit_id: 2) }
+
 
     it 'deletes a visit' do
       expect {
         delete visit_url(visit.id), headers: { Authorization: token }
-      }.to change(Visit, :count).from(1).to(0)
+      }.to change(Visit, :count).from(2).to(1)
+
+      expect(response).to have_http_status(:no_content)
+    end
+
+    it 'deletes a visit witha dependent answer' do
+      expect {
+        delete visit_url(visit2.id), headers: { Authorization: token }
+      }.to change(Visit, :count).from(2).to(1)
 
       expect(response).to have_http_status(:no_content)
     end

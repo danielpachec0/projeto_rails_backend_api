@@ -5,7 +5,7 @@ class Visit < ApplicationRecord
     validate :date_before_current_date, :checkin_at_validation, :checkout_at_validation
     
     belongs_to :user
-    has_many :answer
+    has_many :answer, dependent: :destroy
 
     private
     def date_before_current_date
