@@ -56,11 +56,20 @@ describe 'Formularies api', type: :request do
 
   describe 'DELETE /formularies/:id' do
     let!(:form) { create(:formulary) } 
+    let!(:form2) { create(:formulary, name: 'form 2') } 
+    let!(:question) { create(:question, :text, formulary_id: 2) }
 
     it 'deletes a formulary' do
       expect {
         delete formulary_url(form.id), headers: { Authorization: token } 
-      }.to change(Formulary, :count).from(1).to(0)
+      }.to change(Formulary, :count).from(2).to(1)
+
+      expect(response).to have_http_status(:no_content)
+    end
+    it 'deletes a formulary with a question' do
+      expect {
+        delete formulary_url(form2.id), headers: { Authorization: token } 
+      }.to change(Formulary, :count).from(2).to(1)
 
       expect(response).to have_http_status(:no_content)
     end

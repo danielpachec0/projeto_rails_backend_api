@@ -18,7 +18,7 @@ class Question < ApplicationRecord
     
 
     belongs_to :formulary
-    has_one :answer
+    has_one :answer, dependent: :destroy
 
     def is_image?
         question_type == 'image'

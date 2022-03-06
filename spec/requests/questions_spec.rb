@@ -94,13 +94,20 @@ RSpec.describe "Questions api", type: :request do
 
   describe 'DELETE /questions/:id' do
     let!(:question) { create(:question, :text) } 
-
+    let!(:question2) { create(:question, :text, name: 'new question', formulary_id: 1 ) } 
+    let!(:answer) { create(:answer, formulary_id: 1, question_id: 2) }
     it 'deletes a question' do
       expect {
         delete question_url(question.id), headers: { Authorization: token }
-      }.to change(Question, :count).from(1).to(0)
+      }.to change(Question, :count).from(2).to(1)
 
       expect(response).to have_http_status(:no_content)
+    end
+
+    it 'delete a question with an answer' do
+      expect {
+        delete question_url(question2.id), headers: { Authorization: token }
+      }.to change(Question, :count).from(2).to(1)
     end
   end 
 end
