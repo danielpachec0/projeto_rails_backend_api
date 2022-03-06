@@ -1,22 +1,25 @@
 require 'rails_helper'
 
 describe 'Users api', type: :request do
+  let!(:user) { create(:user) }
+  let!(:token) { get_token(user) }
+
   describe 'GET /users' do
     before do
-      create(:user)
       create(:user, email: 'email2@mail.com', cpf: '379.874.200-69')
     end
     it 'return all users' do
       
-      get users_url
+      get users_url, headers: { Authorization: token } 
+
       expect(response).to have_http_status(:success)
       expect(JSON.parse(response.body).size).to eq(2)
     end
   end
+  
   describe 'GET /user/:id' do
-    let!(:user) { create(:user) } 
     it 'return the specified user' do
-      get user_url(user.id)
+      get user_url(user.id), headers: { Authorization: token } 
       
       expect(response).to have_http_status(:success)
     end
@@ -24,8 +27,9 @@ describe 'Users api', type: :request do
   describe 'POST /users' do
     it 'create a new user' do
       expect {
-        post users_url, params: { user: { name: 'daniel', email: 'daniel@mail.com', cpf: '379.874.200-69', password: 'abc123'} }
-      }.to change(User, :count).from(0).to(1)
+        post users_url,
+        params: { user: { name: 'daniel', email: 'daniel@mail.com', cpf: '379.874.200-69', password: 'abc123'} }
+      }.to change(User, :count).from(1).to(2)
       
 
       expect(response).to have_http_status(:created)
@@ -41,11 +45,12 @@ describe 'Users api', type: :request do
   end
 
   describe 'PATCH /user/:id' do
-    let!(:user) { create(:user) } 
 
     it 'updates a user' do
       expect {
-      patch user_url(user.id), params: { user: { name: 'anna', password: 'abc123' } }  
+      patch user_url(user.id),
+      params: { user: { name: 'anna', password: 'abc123' } },
+      headers: { Authorization: token } 
       }.to_not change(User, :count)
 
       expect(response).to have_http_status(:ok)
@@ -57,10 +62,17 @@ describe 'Users api', type: :request do
 
     it 'deletes a user' do
       expect {
-        delete user_url(user.id) 
+        delete user_url(user.id), headers: { Authorization: token }
       }.to change(User, :count).from(1).to(0)
 
       expect(response).to have_http_status(:no_content)
     end
   end 
+end
+
+def get_token(user)
+  post '/authenticate', params: { email: user.email, password: user.password}
+  token = JSON.parse(response.body)
+  t =   token["auth_token"] 
+  return t
 end
