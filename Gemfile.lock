@@ -125,6 +125,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.3-x86_64-linux)
       racc (~> 1.4)
+    paranoia (2.5.2)
+      activerecord (>= 5.1, < 7.1)
     puma (5.6.2)
       nio4r (~> 2.0)
     racc (1.6.0)
@@ -199,6 +201,7 @@ DEPENDENCIES
   debug
   factory_bot_rails (~> 6.2)
   jwt (~> 1.5, >= 1.5.4)
+  paranoia (~> 2.1, >= 2.1.5)
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.2)
   rspec-rails (~> 5.1)
