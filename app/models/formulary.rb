@@ -1,4 +1,6 @@
 class Formulary < ApplicationRecord
+    acts_as_paranoid
+
     validates :name, uniqueness: true
 
     has_many :questions, dependent: :destroy
