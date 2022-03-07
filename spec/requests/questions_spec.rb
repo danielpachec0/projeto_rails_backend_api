@@ -45,6 +45,7 @@ RSpec.describe "Questions api", type: :request do
       it 'return the specified question' do
         get formulary_url(question.id), headers: { Authorization: token }
         
+        expect(JSON.parse(response.body)["id"]).to eq(question.id)
         expect(response).to have_http_status(:success)
       end
     end

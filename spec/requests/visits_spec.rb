@@ -43,6 +43,7 @@ RSpec.describe "Visits", type: :request do
       it 'return the specified user' do
         get visit_url(visit.id), headers: { Authorization: token }
         
+        expect(JSON.parse(response.body)["id"]).to eq(visit.id)
         expect(response).to have_http_status(:success)
       end
     end 

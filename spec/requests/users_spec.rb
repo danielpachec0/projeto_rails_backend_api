@@ -42,6 +42,7 @@ describe 'Users api', type: :request do
       it 'return the specified user' do
         get user_url(user.id), headers: { Authorization: token } 
         
+        expect(JSON.parse(response.body)["id"]).to eq(user.id)
         expect(response).to have_http_status(:success)
       end
     end 

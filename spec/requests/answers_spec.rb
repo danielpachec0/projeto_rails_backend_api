@@ -47,6 +47,7 @@ RSpec.describe "Answers api", type: :request do
       it 'return the specified formulary' do
         get formulary_url(answer.id), headers: { Authorization: token }
         
+        expect(JSON.parse(response.body)["id"]).to eq(answer.id)
         expect(response).to have_http_status(:success)
       end
     end

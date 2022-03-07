@@ -44,6 +44,7 @@ describe 'Formularies api', type: :request do
       it 'return the specified formulary' do
         get formulary_url(form.id), headers: { Authorization: token }
         
+        expect(JSON.parse(response.body)["id"]).to eq(form.id)
         expect(response).to have_http_status(:success)
       end
     end
