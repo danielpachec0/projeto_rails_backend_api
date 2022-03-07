@@ -1,4 +1,7 @@
 class Visit < ApplicationRecord
+    acts_as_paranoid
+
+
     validates :date, :status, :checkin_at, :checkout_at, :user_id, presence: true
     validates :status, inclusion: { in: ['pendente', 'realizando', 'realizado'],
                                     message: "%{value} is not a valid option for status"}
