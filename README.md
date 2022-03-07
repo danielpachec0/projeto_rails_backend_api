@@ -1,24 +1,16 @@
-# README
+rails api developed as
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ruby version - 3.1.1
 
-Things you may want to cover:
+rails version - 7.0.2
 
-* Ruby version
+databse - SQLite
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+gems:
+* rspec-rails 5.1
+* factory_bot_rails 6.2
+* bcrypt 3.1.7
+* jwt 1.5.4
+* active_storage_validations 0.9.6
+* simple_command 0.1.0
+* paranoia 2.1
