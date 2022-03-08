@@ -2,6 +2,7 @@ class Question < ApplicationRecord
     acts_as_paranoid
     has_one_attached :image
 
+    validates :name, presence: true
     validates :name, uniqueness: {  scope: :formulary_id,
                                     message: "uniquennes msg placeholder"}
     validates :question_type, inclusion: { in: ['image', 'text'],

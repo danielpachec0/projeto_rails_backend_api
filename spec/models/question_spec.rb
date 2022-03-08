@@ -14,6 +14,22 @@ RSpec.describe Question, type: :model do
 
   describe 'validations' do
 
+    context 'when name is null' do
+      it { expect(build(:question, :text, name: nil)).to be_invalid }
+    end 
+
+    context 'when question_type is null' do
+      it { expect(build(:question, :text, question_type: nil)).to be_invalid }
+    end 
+
+    context 'when formulary_id is null' do
+      it { expect(build(:question, :text, name: 'name1', formulary_id: nil)).to be_invalid }
+    end 
+
+    context 'when formulary_id does not match a formulary in the db' do
+      it { expect(build(:question, :text, name: 'name1', formulary_id: 10)).to be_invalid }
+    end 
+
     context 'when name alwredy is in formulary' do
       before do
         create(:formulary)
