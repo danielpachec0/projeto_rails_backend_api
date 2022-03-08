@@ -23,9 +23,6 @@ class QuestionsController < ApplicationController
     else 
       render json: @question
     end
-    #render json: @question
-    #question = Question.find_by(id: params[:id])
-    
   end
 
   def image
