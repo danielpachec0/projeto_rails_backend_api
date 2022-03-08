@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
   end 
   
   describe 'validation' do
-
+    
     context 'when name is nil' do 
       it { expect(build(:user, name: nil)).to be_invalid }
     end

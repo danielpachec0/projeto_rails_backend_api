@@ -35,16 +35,20 @@ RSpec.describe Visit, type: :model do
       it { expect(build(:visit, checkout_at: nil, user: create(:user))).to be_invalid }
     end
 
-    context 'when date is before than current date and' do 
+    context 'when date is before the current date and' do 
       it { expect(build(:visit, date: DateTime.yesterday, user: create(:user))).to be_invalid }
     end
 
-    context 'when checkin_at is after than current date and' do 
+    context 'when checkin_at is after the current date or before checkout_at' do 
       it { expect(build(:visit, checkin_at: DateTime.tomorrow, user: create(:user))).to be_invalid }
     end
 
     context 'when checkout_at is before than checkin_at' do 
       it { expect(build(:visit, checkout_at: DateTime.yesterday.yesterday, user: create(:user))).to be_invalid }
+    end
+
+    context 'when user_id does not match a registered user' do 
+      it { expect(build(:visit, user_id: 1)).to be_invalid }
     end
   end  
 end
