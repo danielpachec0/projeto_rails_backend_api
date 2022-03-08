@@ -29,5 +29,14 @@ RSpec.describe Answer, type: :model do
 
       it { expect(answer).to be_invalid  }
     end
+
+    context 'when the question do not belong to the formulary' do
+      let!(:form) { create(:formulary) }
+      let!(:other_form) { create(:formulary, name: "other form") }
+      let!(:question) { create(:question, :text, formulary_id: 2) }
+      let(:answer) {build(:answer, question_id: 1, formulary_id: 1)}
+
+      it { expect(answer).to be_invalid  }
+    end
   end
 end
