@@ -3,9 +3,16 @@ class QuestionsController < ApplicationController
 
   # GET /questions
   def index
-    @questions = Question.all
 
-    render json: @questions
+    response_data = []
+    Question.all.entries.each do |question|
+      if question&.image&.attached?
+        response_data.append(success_json_with_image(question))
+      else 
+        response_data.append(question)
+      end
+    end
+    render json: response_data
   end
 
   # GET /questions/1
