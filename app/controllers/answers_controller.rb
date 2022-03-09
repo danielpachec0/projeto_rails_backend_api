@@ -8,7 +8,7 @@ class AnswersController < ApplicationController
     render json: @answers
   end
 
-  # GET /answers/1
+  # GET /answers/id
   def show
     render json: @answer
   end
@@ -24,7 +24,7 @@ class AnswersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /answers/1
+  # PATCH/PUT /answers/id
   def update
     if @answer.update(answer_params)
       render json: @answer
@@ -33,7 +33,7 @@ class AnswersController < ApplicationController
     end
   end
 
-  # DELETE /answers/1
+  # DELETE /answers/id
   def destroy
     @answer.destroy
   end

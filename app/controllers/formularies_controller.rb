@@ -8,7 +8,7 @@ class FormulariesController < ApplicationController
     render json: @formularies
   end
 
-  # GET /formularies/1
+  # GET /formularies/id
   def show
     render json: @formulary
   end
@@ -24,7 +24,7 @@ class FormulariesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /formularies/1
+  # PATCH/PUT /formularies/id
   def update
     if @formulary.update(formulary_params)
       render json: @formulary
@@ -33,7 +33,7 @@ class FormulariesController < ApplicationController
     end
   end
 
-  # DELETE /formularies/1
+  # DELETE /formularies/id
   def destroy
     @formulary.destroy
   end
