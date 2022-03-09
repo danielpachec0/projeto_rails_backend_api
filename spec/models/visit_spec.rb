@@ -4,7 +4,7 @@ RSpec.describe Visit, type: :model do
   
   describe 'Factory' do
     
-    context 'when normal factory' do
+    context 'when it builds a valid visit' do
       it { expect(build(:visit, user: create(:user))).to be_valid  }
     end 
   end

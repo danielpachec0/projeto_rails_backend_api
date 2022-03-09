@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Question, type: :model do
   describe 'factory' do
 
-    context 'when normal factory' do
+    context 'when it builds a valid question with question_type of text' do
       it { expect(build(:question, :text)).to be_valid  }
     end
 
-    context 'when normal factory' do
+    context 'when it builds a valid question with question_type of image' do
       it { expect(build(:question, :image)).to be_valid  }
     end 
   end

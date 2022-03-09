@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Formulary, type: :model do
   describe 'factory' do
 
-    context 'when normal factory' do
+    context 'when it builds a valid formulary' do
       it { expect(build(:formulary)).to be_valid  }
     end 
   end

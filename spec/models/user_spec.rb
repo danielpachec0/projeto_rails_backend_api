@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
 
   describe 'factory' do
 
-    context 'when normal factory' do
+    context 'when it builds a valid user' do
       it { expect(build(:user)).to be_valid }
     end 
   end 
