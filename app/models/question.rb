@@ -15,13 +15,11 @@ class Question < ApplicationRecord
         img.validates :image, absence: true
         img.validates :text, presence: true
     end
-    
-
-    
 
     belongs_to :formulary
     has_one :answer, dependent: :destroy
 
+    private
     def is_image?
         question_type == 'image'
     end 

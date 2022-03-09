@@ -1,7 +1,6 @@
 class Visit < ApplicationRecord
     acts_as_paranoid
 
-
     validates :date, :status, :checkin_at, :checkout_at, :user_id, presence: true
     validates :status, inclusion: { in: ['pendente', 'realizando', 'realizado'],
                                     message: "%{value} is not a valid option for status"}
@@ -25,7 +24,5 @@ class Visit < ApplicationRecord
         if checkout_at.present? && checkin_at.present? && checkout_at < checkin_at
             errors.add(:checkout_at, "cant be before chekin_at")
         end
-    end 
-        
-        
+    end      
 end
