@@ -16,5 +16,9 @@ RSpec.describe Formulary, type: :model do
       end 
       it { expect(build(:formulary)).to be_invalid  }
     end
+
+    context 'when name is nil' do 
+      it { expect(build(:formulary, name: nil)).to be_invalid  }
+    end
   end 
 end
